@@ -2,8 +2,8 @@ import { useFrame } from '@react-three/fiber';
 import { FC, useRef, useState } from 'react';
 import { Mesh, Vector3 } from 'three';
 
-const RADIUS = 100;
-const SPEED = 0.1;
+import { PLAYER_RADIUS, PLAYER_SPEED } from '../config';
+
 const BOX_SIZE = 10;
 const MOVEMENT_THRESHOLD = 10;
 
@@ -20,8 +20,8 @@ export const Player: FC<{ onMove?: (position: Vector3) => void }> = ({ onMove })
 
     const timer = clock.getElapsedTime();
 
-    const posX = RADIUS * Math.sin(timer * SPEED);
-    const posZ = RADIUS * Math.cos(timer * SPEED);
+    const posX = PLAYER_RADIUS * Math.sin(timer * PLAYER_SPEED);
+    const posZ = PLAYER_RADIUS * Math.cos(timer * PLAYER_SPEED);
 
     ref.current.position.x = posX;
     ref.current.position.z = posZ;

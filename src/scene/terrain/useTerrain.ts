@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
 import { Vector3 } from 'three';
 
 import { useChunks } from './useChunks';
 
-const CHUNK_RADIUS = 3;
+import { CHUNK_RADIUS } from '../../config';
+
 const CHUNK_OFFSET = 32;
 
 const getCoordsInRadius = (center: Vector3, radius: number): Vector3[] => {
@@ -29,9 +29,9 @@ const getCoordsInRadius = (center: Vector3, radius: number): Vector3[] => {
 export const useTerrain = () => {
   const { addChunk, removeChunk, chunks, chunksPending } = useChunks();
 
-  useEffect(() => {
-    console.log('chunks pending', chunksPending);
-  }, [chunksPending]);
+  // useEffect(() => {
+  //   console.log('chunks pending', chunksPending);
+  // }, [chunksPending]);
 
   const update = (position: Vector3) => {
     if (chunksPending) {

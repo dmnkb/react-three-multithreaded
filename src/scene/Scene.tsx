@@ -9,7 +9,7 @@ export const Scene = () => {
   return (
     <>
       <Stats />
-      <OrbitControls minDistance={400} />
+      <OrbitControls minDistance={200} />
       <Player onMove={update} />
     </>
   );

@@ -3,7 +3,10 @@ import { useRef, useState } from 'react';
 import { Mesh, Vector3 } from 'three';
 
 import { createMesh } from './helpers';
+import { useNoise } from './useNoise';
 import { useRemoteNoise } from './useRemoteNoise';
+
+import { MULTITHREADED } from '../../config';
 
 type Chunk = {
   mesh: Mesh;
@@ -19,6 +22,8 @@ export const useChunks = () => {
 
   const { createRemoteNoise } = useRemoteNoise();
 
+  const { calculateTerrain } = useNoise();
+
   const chunkExists = (coords: Vector3): boolean => {
     return Boolean(
       chunksRef.current.find(
@@ -32,10 +37,22 @@ export const useChunks = () => {
       return;
     }
 
-    setChunksPending((pending) => pending + 1);
+    if (MULTITHREADED) {
+      setChunksPending((pending) => pending + 1);
 
-    createRemoteNoise((data) => {
-      setChunksPending((pending) => pending - 1);
+      createRemoteNoise((data) => {
+        setChunksPending((pending) => pending - 1);
+
+        const mesh = createMesh({
+          offset: coords,
+          data,
+        });
+
+        chunksRef.current.push({ coords, mesh });
+        scene.add(mesh);
+      }, coords);
+    } else {
+      const data = calculateTerrain(coords, 32);
 
       const mesh = createMesh({
         offset: coords,
@@ -44,7 +61,7 @@ export const useChunks = () => {
 
       chunksRef.current.push({ coords, mesh });
       scene.add(mesh);
-    }, coords);
+    }
   };
 
   const removeChunk = (coords: Vector3) => {

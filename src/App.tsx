@@ -7,17 +7,12 @@ import { Scene } from './scene';
 const App = () => {
   return (
     <div className="w-screen h-screen ">
-      <Canvas
-        camera={{
-          position: [0, 10, 20],
-          fov: 35,
-        }}
-      >
+      <Canvas gl={{ antialias: false, preserveDrawingBuffer: true }} shadows camera={{ position: [4, 0, 6], fov: 35 }}>
         <Scene />
         <EffectComposer>
-          <N8AO color="red" aoRadius={2} intensity={1} aoSamples={3} />
+          <N8AO color="red" aoRadius={2} intensity={1} aoSamples={4} />
         </EffectComposer>
-        <Environment files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/aerodynamics_workshop_1k.hdr" />
+        <Environment preset="dawn" background blur={1} />
       </Canvas>
     </div>
   );
