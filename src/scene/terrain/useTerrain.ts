@@ -2,7 +2,7 @@ import { Vector3 } from 'three';
 
 import { useChunks } from './useChunks';
 
-import { CHUNK_RADIUS } from '../../config';
+import { useSettings } from '@/SettingsContext';
 
 const CHUNK_OFFSET = 32;
 
@@ -33,12 +33,14 @@ export const useTerrain = () => {
   //   console.log('chunks pending', chunksPending);
   // }, [chunksPending]);
 
+  const { chunkRadius } = useSettings();
+
   const update = (position: Vector3) => {
     if (chunksPending) {
       return;
     }
 
-    const newCoords = getCoordsInRadius(position, CHUNK_RADIUS * CHUNK_OFFSET);
+    const newCoords = getCoordsInRadius(position, chunkRadius * CHUNK_OFFSET);
     const oldCoords = chunks?.map(({ coords }) => coords);
 
     // Remove old

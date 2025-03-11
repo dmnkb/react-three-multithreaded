@@ -6,7 +6,7 @@ import { createMesh } from './helpers';
 import { useNoise } from './useNoise';
 import { useRemoteNoise } from './useRemoteNoise';
 
-import { MULTITHREADED } from '../../config';
+import { useSettings } from '@/SettingsContext';
 
 type Chunk = {
   mesh: Mesh;
@@ -24,6 +24,8 @@ export const useChunks = () => {
 
   const { calculateTerrain } = useNoise();
 
+  const { multithreaded } = useSettings();
+
   const chunkExists = (coords: Vector3): boolean => {
     return Boolean(
       chunksRef.current.find(
@@ -37,7 +39,7 @@ export const useChunks = () => {
       return;
     }
 
-    if (MULTITHREADED) {
+    if (multithreaded) {
       setChunksPending((pending) => pending + 1);
 
       createRemoteNoise((data) => {

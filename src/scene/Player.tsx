@@ -2,7 +2,7 @@ import { useFrame } from '@react-three/fiber';
 import { FC, useRef, useState } from 'react';
 import { Mesh, Vector3 } from 'three';
 
-import { PLAYER_RADIUS, PLAYER_SPEED } from '../config';
+import { useSettings } from '@/SettingsContext';
 
 const BOX_SIZE = 10;
 const MOVEMENT_THRESHOLD = 10;
@@ -10,6 +10,8 @@ const MOVEMENT_THRESHOLD = 10;
 export const Player: FC<{ onMove?: (position: Vector3) => void }> = ({ onMove }) => {
   const ref = useRef<Mesh>(null);
   const [prevPosition, setPrevPosition] = useState<Vector3 | null>(null);
+
+  const { playerSpeed, playerRadius } = useSettings();
 
   useFrame(({ clock }) => {
     if (!ref.current) {
@@ -20,8 +22,8 @@ export const Player: FC<{ onMove?: (position: Vector3) => void }> = ({ onMove })
 
     const timer = clock.getElapsedTime();
 
-    const posX = PLAYER_RADIUS * Math.sin(timer * PLAYER_SPEED);
-    const posZ = PLAYER_RADIUS * Math.cos(timer * PLAYER_SPEED);
+    const posX = playerRadius * Math.sin(timer * playerSpeed);
+    const posZ = playerRadius * Math.cos(timer * playerSpeed);
 
     ref.current.position.x = posX;
     ref.current.position.z = posZ;
