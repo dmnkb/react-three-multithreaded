@@ -8,7 +8,7 @@ export const Scene = () => {
 
   return (
     <>
-      <OrbitControls minDistance={200} />
+      <OrbitControls minDistance={200} zoomSpeed={0.1} />
       <Player onMove={update} />
       <Stats />
       <EffectComposer>
