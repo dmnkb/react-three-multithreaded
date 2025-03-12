@@ -64,12 +64,12 @@ export const SettingsControls: React.FC = () => {
   const {
     multithreaded,
     chunkRadius,
-    playerSpeed,
-    playerRadius,
+    playerSpeed: _0,
+    playerRadius: _1,
     setMultithreaded,
     setChunkRadius,
-    setPlayerSpeed,
-    setPlayerRadius,
+    setPlayerSpeed: _3,
+    setPlayerRadius: _4,
   } = useSettings();
 
   return (
@@ -82,14 +82,15 @@ export const SettingsControls: React.FC = () => {
         <span>Chunk Radius: {chunkRadius}</span>
         <Slider value={[chunkRadius]} min={1} max={10} step={1} onValueChange={(v) => setChunkRadius(v[0])} />
       </div>
-      <div>
+      {/* Commented out for simplicity! */}
+      {/* <div>
         <span>Player Speed: {playerSpeed.toFixed(2)}</span>
         <Slider value={[playerSpeed]} min={0.0} max={1.0} step={0.01} onValueChange={(v) => setPlayerSpeed(v[0])} />
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <span>Circle Radius: {playerRadius}</span>
         <Slider value={[playerRadius]} min={50} max={500} step={10} onValueChange={(v) => setPlayerRadius(v[0])} />
-      </div>
+      </div> */}
     </div>
   );
 };
