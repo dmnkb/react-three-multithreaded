@@ -45,7 +45,7 @@ export const Player: FC<{ onMove?: (position: Vector3) => void }> = ({ onMove })
   });
 
   return (
-    <mesh position={new Vector3(0, 25, 0)} ref={ref}>
+    <mesh position={[0, 25, 0]} ref={ref}>
       <boxGeometry args={[BOX_SIZE, BOX_SIZE, BOX_SIZE]} attach="geometry" />
       <meshStandardMaterial color="hotpink" attach="material" />
     </mesh>

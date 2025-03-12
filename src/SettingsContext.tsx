@@ -84,10 +84,10 @@ export const SettingsControls: React.FC = () => {
       </div>
       <div>
         <span>Player Speed: {playerSpeed.toFixed(2)}</span>
-        <Slider value={[playerSpeed]} min={0.1} max={1.0} step={0.01} onValueChange={(v) => setPlayerSpeed(v[0])} />
+        <Slider value={[playerSpeed]} min={0.0} max={1.0} step={0.01} onValueChange={(v) => setPlayerSpeed(v[0])} />
       </div>
       <div>
-        <span>Player Radius: {playerRadius}</span>
+        <span>Circle Radius: {playerRadius}</span>
         <Slider value={[playerRadius]} min={50} max={500} step={10} onValueChange={(v) => setPlayerRadius(v[0])} />
       </div>
     </div>

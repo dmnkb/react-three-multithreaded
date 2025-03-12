@@ -1,29 +1,29 @@
-import { Environment } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
-import { EffectComposer, N8AO } from '@react-three/postprocessing';
-
-import { Scene } from './scene';
+import { Canvas, ThreeElements } from '@react-three/fiber';
 import { SettingsProvider, SettingsControls } from './SettingsContext';
+import { Scene } from './scene';
 
-const App = () => {
-  return (
-    <SettingsProvider>
-      <div className="w-screen h-screen ">
-        <Canvas
-          gl={{ antialias: false, preserveDrawingBuffer: true }}
-          shadows
-          camera={{ position: [4, 0, 6], fov: 35 }}
-        >
-          <Scene />
-          <EffectComposer>
-            <N8AO color="red" aoRadius={2} intensity={1} aoSamples={4} />
-          </EffectComposer>
-          <Environment preset="dawn" background blur={1} />
-        </Canvas>
-        <SettingsControls />
-      </div>
-    </SettingsProvider>
-  );
-};
+// React 19 compatibility
+declare global {
+  namespace React {
+    namespace JSX {
+      interface IntrinsicElements extends ThreeElements {}
+    }
+  }
+}
+
+const App = () => (
+  <SettingsProvider>
+    <div className="w-screen h-screen ">
+      <Canvas
+        gl={{ antialias: false, preserveDrawingBuffer: true }}
+        shadows
+        camera={{ position: [500, 500, 500], fov: 35, near: 0.1, far: 10000 }}
+      >
+        <Scene />
+      </Canvas>
+      <SettingsControls />
+    </div>
+  </SettingsProvider>
+);
 
 export default App;
